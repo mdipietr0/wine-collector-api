@@ -29,18 +29,18 @@ RSpec.describe 'routes for wines' do
       id: '1'
     )
   end
+
+  it 'routes PATCH /wines/:id to the wines#destroy action' do
+    # check that a patch request to /articles/:id maps to the patch
+    # action in the articles controller, with the ID that came in the request
+    expect(patch('wines/1')).to route_to(
+      controller: 'wines',
+      action: 'update',
+      id: '1'
+    )
+  end
 end
 
-#   it 'routes PATCH /articles/:id to the articles#update action' do
-#     # check that a patch request to /articles/:id maps to the patch
-#     # action in the articles controller, with the ID that came in the request
-#     expect(patch('/articles/1')).to route_to(
-#       controller: 'articles',
-#       action: 'update',
-#       id: '1'
-#     )
-#   end
-#
 #   it 'routes POST /articles to the articles#create action' do
 #     expect(post('/articles')).to route_to('articles#create')
 #   end
