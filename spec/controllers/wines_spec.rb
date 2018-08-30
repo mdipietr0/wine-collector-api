@@ -54,24 +54,19 @@ RSpec.describe WinesController do
       expect(wine_response['id']).to eq(wine['id'])
     end
   end
-  #
-  # describe 'GET show' do
-  #   # before each test, call a get request on the controllers :show method
-  #   before(:each) { get :show, params: { id: article.id } }
-  #
-  #   it 'is successful' do
-  #     expect(response.status).to eq(200)
-  #   end
-  #
-  #   it 'renders a JSON response' do
-  #     # take the JSON response, parse into a ruby object
-  #     # we can manipulate the object and compare it to the database
-  #     article_response = JSON.parse(response.body)
-  #     expect(article_response).not_to be_nil
-  #     expect(article_response['id']).to eq(article.id)
-  #   end
-  # end
-  #
+
+  describe 'DELETE destroy' do
+    # before each test, call a delete request on the controllers :destroy method
+    it 'is successful and returns an empty response' do
+      delete :destroy, params: { id: wine.id }
+
+      expect(response).to be_success
+
+      expect(response.body).to be_empty
+
+      expect(wine).to be_nil
+    end
+  end
   # describe 'DELETE destroy' do
   #   # before each test, call a get request on the controllers :show method
   #

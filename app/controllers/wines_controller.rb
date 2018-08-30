@@ -13,4 +13,10 @@ class WinesController < ApplicationController
   def show
     render json: Wine.find(params[:id])
   end
+
+  def destroy
+    @wine = Wine.find(params[:id])
+    @wine.destroy
+    head :no_content
+  end
 end
