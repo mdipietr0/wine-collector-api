@@ -67,36 +67,27 @@ RSpec.describe WinesController do
       expect(wine).to be_nil
     end
   end
-  # describe 'DELETE destroy' do
-  #   # before each test, call a get request on the controllers :show method
-  #
-  #   it 'is successful and returns an empty response' do
-  #     delete :destroy, params: { id: article.id }
-  #     expect(response.status).to eq(204)
-  #     expect(response.body).to be_empty
-  #     expect(article).to be_nil
-  #   end
-  # end
-  #
-  # describe 'PATCH update' do
-  #   def article_diff
-  #     { title: 'Two Stupid Tricks' }
-  #   end
-  #
-  #   before(:each) do
-  #     patch :update, params: { id: article.id, article: article_diff }
-  #   end
-  #
-  #   it 'is successful' do
-  #     expect(response).to be_success
-  #   end
-  #
-  #   it 'renders a JSON response' do
-  #     article_response = JSON.parse(response.body)
-  #     expect(article_response['title']).to eq(article_diff[:title])
-  #   end
-  # end
-  #
+
+  describe 'PATCH update' do
+    def wine_diff
+      { name: 'Silver Oak' }
+    end
+    before(:each) { patch :update, params: { id: wine.id, wine: wine_diff } }
+    it 'is successful' do
+      expect(response).to be_success
+    end
+
+    it 'renders a JSON response' do
+      wine_response = JSON.parse(response.body)
+
+      # check that wine was changed
+      expect(wine_response['name']).to eq(wine_diff[:name])
+      # NOTE when referencing hash properties, if property is stored with
+      # a symbol, it must be accessed with a symbole and vice versa.
+    end
+  end
+
+
   # describe 'POST create' do
   #   before(:each) do
   #     post :create, params: { article: article_params }
