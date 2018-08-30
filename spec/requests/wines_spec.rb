@@ -72,6 +72,22 @@ RSpec.describe 'Wines API' do
     end
   end
 
+  describe 'PATCH /wines/:id' do
+    def wine_diff
+      { name: 'Silver Oak' }
+    end
+
+    it 'updates a wine' do
+      patch "/wines/#{wine.id}", params: { wine: wine_diff }
+
+      expect(response).to be_success
+
+      wine_response = JSON.parse(response.body)
+
+      expect(wine_response['name']).to eq(wine_diff[:name])
+    end
+  end
+
   # describe 'PATCH /articles/:id' do
   #   def article_diff
   #     { title: 'Two Stupid Tricks' }
