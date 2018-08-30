@@ -88,33 +88,23 @@ RSpec.describe 'Wines API' do
     end
   end
 
-  # describe 'PATCH /articles/:id' do
-  #   def article_diff
-  #     { title: 'Two Stupid Tricks' }
-  #   end
-  #
-  #   it 'updates an article' do
-  #     patch "/articles/#{article.id}", params: { article: article_diff }
-  #
-  #     expect(response).to be_success
-  #     article_response = JSON.parse(response.body)
-  #     expect(article_response['title']).to eq(article_diff[:title])
-  #   end
-  # end
-  #
-  # describe 'POST /articles' do
-  #   def new_article
-  #     {
-  #       title: 'Two Weird Tricks',
-  #       content: 'You won\'t believe what happens next...'
-  #     }
-  #   end
-  #   it 'creates an article' do
-  #     post '/articles', params: { article: new_article }
-  #
-  #     expect(response).to be_success
-  #     article_response = JSON.parse(response.body)
-  #     expect(article_response['title']).to eq(new_article[:title])
-  #   end
-  # end
+  describe 'POST /wines' do
+    def new_wine
+      {
+        producer: 'Trimbach',
+        name: 'Pinot Blanc Classic',
+        country: 'France',
+        region: 'Alsace',
+        color: 'White'
+      }
+    end
+    it 'creates a wine' do
+      post '/wines', params: { wine: new_wine }
+
+      expect(response).to be_success
+
+      wine_response = JSON.parse(response.body)
+      expect(wine_response['name']).to eq(new_wine[:name])
+    end
+  end
 end
