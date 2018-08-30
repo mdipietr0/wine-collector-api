@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180830145121) do
+ActiveRecord::Schema.define(version: 20180830230051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,10 @@ ActiveRecord::Schema.define(version: 20180830145121) do
     t.string "country"
     t.string "region"
     t.string "color"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_wines_on_user_id"
   end
 
   add_foreign_key "examples", "users"
+  add_foreign_key "wines", "users"
 end
