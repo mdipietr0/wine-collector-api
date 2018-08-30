@@ -44,6 +44,16 @@ RSpec.describe 'Wines API' do
     end
   end
 
+  describe 'GET /wines/:id' do
+    it 'shows one wine' do
+      get "/wines/#{wine.id}"
+
+      expect(response).to be_success
+
+      wine_response = JSON.parse(response.body)
+      expect(wine_response['id']).to eq(wine['id'])
+    end
+  end
   #
   # describe 'GET /articles/:id' do
   #   it 'shows one article' do
