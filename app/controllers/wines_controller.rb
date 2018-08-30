@@ -28,6 +28,16 @@ class WinesController < ApplicationController
     end
   end
 
+  def create
+    # @example = current_user.examples.build(example_params)
+    @wine = Wine.new(wine_params)
+    if @wine.save
+      render json: @wine
+    else
+      render json: @wine.errors, status: :unprocessable_entity
+    end
+  end
+
   def set_wine
     # @wine = current_user.wines.find(params[:id])
     @wine = Wine.find(params[:id])

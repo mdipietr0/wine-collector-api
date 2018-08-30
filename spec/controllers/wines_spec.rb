@@ -87,6 +87,19 @@ RSpec.describe WinesController do
     end
   end
 
+  describe 'POST create' do
+    before(:each) { post :create, params: { wine: wine_params } }
+
+    it 'is successful' do
+      expect(response).to be_success
+    end
+
+    it 'renders a JSON response' do
+      wine_response = JSON.parse(response.body)
+      expect(wine_response['name']).to eq(wine_params[:name])
+    end
+  end
+
 
   # describe 'POST create' do
   #   before(:each) do
