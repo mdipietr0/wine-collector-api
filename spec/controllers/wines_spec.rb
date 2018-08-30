@@ -39,6 +39,21 @@ RSpec.describe WinesController do
     end
   end
 
+  describe 'GET show' do
+    # before each test, call a get request on the controllers :show method
+    before(:each) { get :show, params: { id: wine.id } }
+
+    it 'is successful' do
+      expect(response).to be_success
+    end
+
+    it 'renders a JSON response' do
+      # take the JSON response, parse into a ruby object
+      # we can manipulate the object and compare it to the database
+      wine_response = JSON.parse(response.body)
+      expect(wine_response['id']).to eq(wine['id'])
+    end
+  end
   #
   # describe 'GET show' do
   #   # before each test, call a get request on the controllers :show method

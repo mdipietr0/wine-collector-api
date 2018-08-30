@@ -9,4 +9,8 @@ class WinesController < ApplicationController
 
     render json: @wines
   end
+
+  def show
+    render json: Wine.find(params[:id])
+  end
 end
