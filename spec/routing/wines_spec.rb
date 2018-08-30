@@ -7,6 +7,14 @@ RSpec.describe 'routes for wines' do
     expect(get('/wines')).to route_to('wines#index')
     expect(get: '/wines').to route_to(controller: 'wines', action: 'index')
   end
+
+  it 'routes GET /wines/:id to the wines#show action' do
+    expect(get('/wines/1')).to route_to(
+      controller: 'wines',
+      action: 'show',
+      id: '1'
+    )
+  end
 end
 
 #
