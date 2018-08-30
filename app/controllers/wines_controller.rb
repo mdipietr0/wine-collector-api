@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 # Inherit from this class to require authenticated access to all actions
-class WinesController < ApplicationController
+class WinesController < ProtectedController
   before_action :set_wine, only: %i[show update destroy]
-  # before_action :authenticate
 
   def index
     @wines = Wine.all
