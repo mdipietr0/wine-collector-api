@@ -23,6 +23,8 @@ RSpec.describe 'Wines API' do
   end
 
   before(:all) do
+    # create! is similar to create except that an exception is raised
+    # instead of just failing and returning false.
     Wine.create!(wine_params)
   end
 
@@ -54,33 +56,22 @@ RSpec.describe 'Wines API' do
       expect(wine_response['id']).to eq(wine['id'])
     end
   end
-  #
-  # describe 'GET /articles/:id' do
-  #   it 'shows one article' do
-  #     # make a get request to articles with the id of the article
-  #     # that was created for running this test
-  #     get "/articles/#{article.id}"
-  #
-  #     expect(response).to be_success
-  #     article_response = JSON.parse(response.body)
-  #     expect(article_response['id']).to eq(article['id'])
-  #     expect(article_response['title']).to eq(article['title'])
-  #   end
-  # end
-  #
-  # describe 'DELETE /articles/:id' do
-  #   it 'deletes an article' do
-  #     # make a delete request to articles with the id of the article
-  #     # that was created for running this test
-  #     delete "/articles/#{article.id}"
-  #
-  #     expect(response).to be_success
-  #     expect(response.status).to eq(204)
-  #     expect(response.body).to be_empty
-  #     expect(article).to be_nil
-  #   end
-  # end
-  #
+
+  describe 'DELETE /articles/:id' do
+    # make a delete request to articles with the id of the article
+    # that was created for running this test
+    it 'deletes a wine' do
+      delete "/wines/#{wine.id}"
+
+      expect(response).to be_success
+
+      expect(response.body).to be_empty
+
+      # ensures that the wine was actually deleted
+      expect(wine).to be_nil
+    end
+  end
+
   # describe 'PATCH /articles/:id' do
   #   def article_diff
   #     { title: 'Two Stupid Tricks' }
