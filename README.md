@@ -12,3 +12,10 @@ DAY 1:
     - created passing unit tests for all controller
     - manually created all controller methods
     - created passing feature tests for wine API
+
+  - Add curl scripts for wines resource
+  - Add user reference to wines  
+    - Run bin/rails generate migration AddUserToWines user:references
+    - Run bin/rails db:migrate
+    - Add had_many :wines to User class
+    - Add belongs_to :user to wines class
