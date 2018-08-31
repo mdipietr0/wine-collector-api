@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require 'rails_helper'
 
 RSpec.describe 'Wines API' do
@@ -14,6 +13,14 @@ RSpec.describe 'Wines API' do
     }
   end
 
+  def user_params
+    {
+      email: 'bob@example.com',
+      password: 'foobarbaz',
+      password_confirmation: 'foobarbaz'
+    }
+  end
+
   def wines
     Wine.all
   end
@@ -23,9 +30,22 @@ RSpec.describe 'Wines API' do
   end
 
   before(:all) do
+    post '/sign-up', params: { credentials: user_params }
+    post '/sign-in', params: { credentials: user_params }
+
+    @token = JSON.parse(response.body)['user']['token']
+    @user_id = JSON.parse(response.body)['user']['id']
+    w = wine_params
+    w[:user_id] = @user_id
     # create! is similar to create except that an exception is raised
     # instead of just failing and returning false.
-    Wine.create!(wine_params)
+    Wine.create!(w)
+  end
+
+  def headers
+    {
+      'HTTP_AUTHORIZATION' => "Token token=#{@token}"
+    }
   end
 
   after(:all) do
@@ -34,7 +54,7 @@ RSpec.describe 'Wines API' do
 
   describe 'GET /wines' do
     it 'lists all wines' do
-      get '/wines'
+      get '/wines', headers: headers
 
       expect(response).to be_success
 
@@ -48,7 +68,7 @@ RSpec.describe 'Wines API' do
 
   describe 'GET /wines/:id' do
     it 'shows one wine' do
-      get "/wines/#{wine.id}"
+      get "/wines/#{wine.id}", headers: headers
 
       expect(response).to be_success
 
@@ -61,7 +81,7 @@ RSpec.describe 'Wines API' do
     # make a delete request to articles with the id of the article
     # that was created for running this test
     it 'deletes a wine' do
-      delete "/wines/#{wine.id}"
+      delete "/wines/#{wine.id}", headers: headers
 
       expect(response).to be_success
 
@@ -78,7 +98,7 @@ RSpec.describe 'Wines API' do
     end
 
     it 'updates a wine' do
-      patch "/wines/#{wine.id}", params: { wine: wine_diff }
+      patch "/wines/#{wine.id}", params: { wine: wine_diff }, headers: headers
 
       expect(response).to be_success
 
@@ -99,7 +119,7 @@ RSpec.describe 'Wines API' do
       }
     end
     it 'creates a wine' do
-      post '/wines', params: { wine: new_wine }
+      post '/wines', params: { wine: new_wine }, headers: headers
 
       expect(response).to be_success
 
