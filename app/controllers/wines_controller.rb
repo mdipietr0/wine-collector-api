@@ -5,7 +5,11 @@ class WinesController < ProtectedController
   before_action :set_wine, only: %i[show update destroy]
 
   def index
-    @wines = Wine.all
+    @wines = if params[:color]
+               current_user.wines.where(color: params[:color])
+             else
+               Wine.all
+             end
 
     render json: @wines
   end
