@@ -2,5 +2,6 @@
 
 class User < ApplicationRecord
   include Authentication
-  has_many :wines
+  has_many :tastings
+  has_many :wines, through: :tastings
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 class Wine < ApplicationRecord
-  belongs_to :user
+  has_many :tastings
   validates :producer, :name, :country, :region, :color, presence: true
 end

@@ -32,8 +32,8 @@ class WinesController < ProtectedController
   end
 
   def create
-    @wine = current_user.wines.build(wine_params)
-    # @wine = Wine.new(wine_params)
+    # @wine = current_user.wines.build(wine_params)
+    @wine = Wine.new(wine_params)
     if @wine.save
       render json: @wine
     else
@@ -42,8 +42,8 @@ class WinesController < ProtectedController
   end
 
   def set_wine
-    @wine = current_user.wines.find(params[:id])
-    # @wine = Wine.find(params[:id])
+    # @wine = current_user.wines.find(params[:id])
+    @wine = Wine.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
