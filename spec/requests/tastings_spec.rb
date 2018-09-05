@@ -48,7 +48,11 @@ RSpec.describe 'Tastings API', type: :request do
 
     tasting_params = {
       wine_id: @wine_id,
-      user_id: @user_id
+      user_id: @user_id,
+      appearance: 'Red',
+      nose: 'Fruity',
+      palate: 'Bold',
+      conclusions: 'Good'
     }
     # create! is similar to create except that an exception is raised
     # instead of just failing and returning false.
@@ -122,7 +126,11 @@ RSpec.describe 'Tastings API', type: :request do
     def tasting_params
       {
         user_id: @user_id,
-        wine_id: @wine_id
+        wine_id: @wine_id,
+        appearance: 'White',
+        nose: 'Floral',
+        palate: 'Light',
+        conclusions: 'Good'
       }
     end
     it 'creates a tasting' do
