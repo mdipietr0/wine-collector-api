@@ -7,7 +7,11 @@ curl "http://localhost:4741/tastings/${ID}" \
   --data '{
     "tasting": {
       "wine_id": "'"${WINEID}"'",
-      "user_id": "'"${USERID}"'"
+      "user_id": "'"${USERID}"'",
+      "appearance": "'"${APPEARANCE}"'",
+      "nose": "'"${NOSE}"'",
+      "palate": "'"${PALATE}"'",
+      "conclusions": "'"${CONCLUSIONS}"'"
     }
   }'
 
