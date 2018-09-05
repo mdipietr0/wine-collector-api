@@ -1,11 +1,11 @@
 require 'pry'
-class TastingsController < ProtectedController
+class TastingsController < OpenReadController
   before_action :set_tasting, only: [:show, :update, :destroy]
 
   # GET /tastings
   def index
     @tastings = if params['wine_id']
-                  current_user.tastings.where(wine_id: params['wine_id'])
+                  Tasting.where(wine_id: params['wine_id'])
                 else
                   Tasting.all
                 end
