@@ -6,11 +6,11 @@ class WinesController < ProtectedController
 
   def index
     @wines = if params[:color]
-               current_user.wines.where(color: params[:color])
+               Wine.where(color: params[:color])
              else
                Wine.all
              end
-
+    puts @wine
     render json: @wines
   end
 
