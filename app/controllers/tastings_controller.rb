@@ -4,7 +4,11 @@ class TastingsController < ProtectedController
 
   # GET /tastings
   def index
-    @tastings = current_user.tastings
+    @tastings = if params['wine_id']
+                  current_user.tastings.where(wine_id: params['wine_id'])
+                else
+                  Tasting.all
+                end
 
     render json: @tastings
   end
