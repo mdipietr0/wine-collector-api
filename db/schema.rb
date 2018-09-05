@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180902193338) do
+ActiveRecord::Schema.define(version: 20180905001652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,10 @@ ActiveRecord::Schema.define(version: 20180902193338) do
     t.bigint "wine_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "appearance"
+    t.string "nose"
+    t.string "palate"
+    t.string "conclusions"
     t.index ["user_id"], name: "index_tastings_on_user_id"
     t.index ["wine_id"], name: "index_tastings_on_wine_id"
   end
