@@ -44,7 +44,7 @@ RSpec.describe 'Tastings API', type: :request do
     @user_id = JSON.parse(response.body)['user']['id']
 
     post '/wines', params: { wine: wine_params }, headers: headers
-    @wine_id = JSON.parse(response.body)['id']
+    @wine_id = JSON.parse(response.body)['wine']['id']
 
     tasting_params = {
       wine_id: @wine_id,
@@ -54,6 +54,7 @@ RSpec.describe 'Tastings API', type: :request do
       palate: 'Bold',
       conclusions: 'Good'
     }
+
     # create! is similar to create except that an exception is raised
     # instead of just failing and returning false.
     Tasting.create!(tasting_params)
