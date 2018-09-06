@@ -1,27 +1,48 @@
-Rails API Template
+# Wine Collector (API)
+This is an API for a wine tasting note app built with Ruby on Rails. Users can
+sign up/in and select from a large list of wines and can create tasting notes
+for each wine.
+https://powerful-savannah-65213.herokuapp.com
 
-Process/Progress
+Link to the client:
+https://mdipietr0.github.io/wine-collector-client/
 
-DAY 1:
-  - ER Diagrams
-  - User stories
-  - BDD development of Wine resource
-    - no generate commands
-    - created passing unit tests for all routes
-    - manually created all routes
-    - created passing unit tests for all controller
-    - manually created all controller methods
-    - created passing feature tests for wine API
-  - Add curl scripts for wines resource
-  - Add user reference to wines and require authentication on request
-    - Run bin/rails generate migration AddUserToWines user:references
-    - Run bin/rails db:migrate
-    - Add had_many :wines to User class
-    - Add belongs_to :user to wines class
-    - Update feature tests to authenticate user before request
+## Technologies Used:
+  - Ruby on Rails
+  - PostgreSQL
+  - RSpec
 
-DAY 2:
-  - Add color query to wines controller
-  - Add curl script to test the query param
-  - Scaffold tastings resource and write passing feature tests
-TODO documentation for API
+## Planning and Development process:
+
+My planning process started by determining what resources I would need to build
+my app and what properties those resources would have. I also needed to determine
+the relationship between these resources. I modelled all of this using an entity-
+relationship diagram.
+
+For the development of this API I employed Test-Driven Development. My process
+was as follows:
+    1. Write a feature test
+    2. Run the test and watch it fail
+    3. Write unit test for piece that is failing
+    4. Run the unit test and watch it fail
+    5. Write implementation code
+    6. Run the unit test (if it fails, refactor implementation)
+    7. Run the feature test again (if it fails, write another unit test)
+For example, to create the /wine endpoint I first wrote a feature test testing
+that I would get a valid response. This test fails because there is not a valid
+route for the endpoint. I then wrote a unit test for the route. I ran both tests
+and watched them fail. Then I wrote the implementation code. Then I ran the tests
+again and the unit test passes but now the feature test fails for a new reason.
+I continue this process until the feature test passes.
+
+I followed this pattern for each endpoint as well as writing curl scripts to
+test manually the responses.
+
+
+Link to Entity Relationship Diagram (ERD).
+[ERD](https://i.imgur.com/oFJxO1Z.png)
+
+
+## Version 2 (Currently developing):
+
+  - Add model validation
