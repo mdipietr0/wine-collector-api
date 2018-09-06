@@ -14,11 +14,6 @@ https://mdipietr0.github.io/wine-collector-client/
 
 ## Planning and Development process:
 
-My planning process started by determining what resources I would need to build
-my app and what properties those resources would have. I also needed to determine
-the relationship between these resources. I modelled all of this using an entity-
-relationship diagram.
-
 For the development of this API I employed Test-Driven Development. My process
 was as follows:
 
