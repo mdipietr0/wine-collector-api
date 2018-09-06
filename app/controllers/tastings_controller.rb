@@ -1,4 +1,3 @@
-require 'pry'
 class TastingsController < OpenReadController
   before_action :set_tasting, only: [:show, :update, :destroy]
 
