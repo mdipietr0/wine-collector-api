@@ -59,7 +59,7 @@ RSpec.describe 'Wines API' do
 
       expect(response).to be_success
 
-      wines_response = JSON.parse(response.body)
+      wines_response = JSON.parse(response.body)['wines']
 
       expect(wines_response.length).to eq(wines.count)
 
@@ -73,7 +73,8 @@ RSpec.describe 'Wines API' do
 
       expect(response).to be_success
 
-      wine_response = JSON.parse(response.body)
+      wine_response = JSON.parse(response.body)['wine']
+
       expect(wine_response['id']).to eq(wine['id'])
     end
   end
@@ -103,7 +104,7 @@ RSpec.describe 'Wines API' do
 
       expect(response).to be_success
 
-      wine_response = JSON.parse(response.body)
+      wine_response = JSON.parse(response.body)['wine']
 
       expect(wine_response['name']).to eq(wine_diff[:name])
     end
@@ -124,7 +125,8 @@ RSpec.describe 'Wines API' do
 
       expect(response).to be_success
 
-      wine_response = JSON.parse(response.body)
+      wine_response = JSON.parse(response.body)['wine']
+
       expect(wine_response['name']).to eq(new_wine[:name])
     end
   end
