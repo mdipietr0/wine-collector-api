@@ -9,8 +9,17 @@ RSpec.describe 'Tastings API', type: :request do
       name: 'Silver Oak',
       country: 'USA',
       region: 'Napa',
-      color: 'Red',
-      # type: 'Still'
+      color: 'Red'
+    }
+  end
+
+  def wine_params2
+    {
+      producer: 'Silver Oak',
+      name: 'Silver Oak',
+      country: 'USA',
+      region: 'Alexander',
+      color: 'Red'
     }
   end
 
@@ -46,6 +55,9 @@ RSpec.describe 'Tastings API', type: :request do
     post '/wines', params: { wine: wine_params }, headers: headers
     @wine_id = JSON.parse(response.body)['wine']['id']
 
+    post '/wines', params: { wine: wine_params2 }, headers: headers
+    @wine_id2 = JSON.parse(response.body)['wine']['id']
+
     tasting_params = {
       wine_id: @wine_id,
       user_id: @user_id,
@@ -72,13 +84,11 @@ RSpec.describe 'Tastings API', type: :request do
 
       expect(response).to be_success
 
-      tastings_response = JSON.parse(response.body)
+      tastings_response = JSON.parse(response.body)['tastings']
 
       expect(tastings_response.length).to eq(tastings.count)
 
-      # Why is tastings_response so awkward to work with??
-
-      expect(tastings_response.first[1][0]['id']).to eq(tasting['id'])
+      expect(tastings_response.first['id']).to eq(tasting['id'])
     end
   end
 
@@ -88,9 +98,9 @@ RSpec.describe 'Tastings API', type: :request do
 
       expect(response).to be_success
 
-      tasting_response = JSON.parse(response.body)
+      tasting_response = JSON.parse(response.body)['tasting']
 
-      expect(tasting_response['tasting']['id']).to eq(tasting['id'])
+      expect(tasting_response['id']).to eq(tasting['id'])
     end
   end
 
@@ -106,22 +116,24 @@ RSpec.describe 'Tastings API', type: :request do
     end
   end
 
-  # TODO need to add columns to tasting in order to have an update action
-  #
-  # describe 'PATCH /tastings/:id' do
-  #   def tasting_diff
-  #     {
-  #       wine_id: 2
-  #     }
-  #   end
-  #   it 'updates a tasting' do
-  #     patch "/tastings/#{tasting.id}",
-  #           params: { tasting: tasting_diff },
-  #           headers: headers
-  #
-  #     expect(response).to be_success
-  #   end
-  # end
+  describe 'PATCH /tastings/:id' do
+    def tasting_diff
+      {
+        wine_id: @wine_id2
+      }
+    end
+    it 'updates a tasting' do
+      patch "/tastings/#{tasting.id}",
+            params: { tasting: tasting_diff },
+            headers: headers
+
+      expect(response).to be_success
+
+      tasting_response = JSON.parse(response.body)['tasting']
+
+      expect(tasting_response['wine']['id']).to eq(@wine_id2)
+    end
+  end
 
   describe 'POST /tasting' do
     def tasting_params
@@ -139,9 +151,9 @@ RSpec.describe 'Tastings API', type: :request do
 
       expect(response).to be_success
 
-      tasting_response = JSON.parse(response.body)
+      tasting_response = JSON.parse(response.body)['tasting']
 
-      user_id = tasting_response['tasting']['user']['id']
+      user_id = tasting_response['user']['id']
 
       expect(user_id).to eq(tasting_params[:user_id])
     end
