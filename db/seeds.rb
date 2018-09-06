@@ -21,7 +21,7 @@ csv.each_with_index do |row, i|
   w.region = row[3]
   w.color = row[4]
   # save only every tenth record
-  w.save if (i % 10).zero?
+  w.save if (i % 50).zero?
 
   puts "#{w.producer} #{w.name} #{w.country} #{w.region} #{w.color} saved"
 end
