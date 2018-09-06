@@ -9,3 +9,29 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'csv'
+
+# csv_text = File.read(Rails.root.join('lib', 'seeds', 'ingredients.csv'))
+# csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+# csv.each do |row|
+#   t = Ingredient.new
+#   t.name = row['name']
+#   t.save
+#   puts "#{t.name} saved"
+# end
+# LWIN,REFERENCE,STATUS,PRODUCER,WINE,COUNTRY,REGION,SUB REGION,COLOUR,TYPE,
+# DESIGNATION,CLASSIFICATION,DATE_ADDED
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'LWIN.csv'))
+csv = CSV.parse(csv_text, headers: true, encoding: 'ISO-8859-1')
+csv.each_with_index do |row, i|
+  w = Wine.new
+  w.producer = row[0]
+  w.name = row[1]
+  w.country = row[2]
+  w.region = row[3]
+  w.color = row[4]
+  # save only every tenth record
+  w.save if (i % 10).zero?
+
+  puts "#{w.producer} #{w.name} #{w.country} #{w.region} #{w.color} saved"
+end
