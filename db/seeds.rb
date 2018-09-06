@@ -11,16 +11,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'csv'
 
-# csv_text = File.read(Rails.root.join('lib', 'seeds', 'ingredients.csv'))
-# csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
-# csv.each do |row|
-#   t = Ingredient.new
-#   t.name = row['name']
-#   t.save
-#   puts "#{t.name} saved"
-# end
-# LWIN,REFERENCE,STATUS,PRODUCER,WINE,COUNTRY,REGION,SUB REGION,COLOUR,TYPE,
-# DESIGNATION,CLASSIFICATION,DATE_ADDED
 csv_text = File.read(Rails.root.join('lib', 'seeds', 'LWIN.csv'))
 csv = CSV.parse(csv_text, headers: true, encoding: 'ISO-8859-1')
 csv.each_with_index do |row, i|
