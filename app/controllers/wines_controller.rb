@@ -18,28 +18,28 @@ class WinesController < ProtectedController
     render json: @wine
   end
 
-  def destroy
-    @wine.destroy
-    head :no_content
-  end
-
-  def update
-    if @wine.update(wine_params)
-      render json: @wine
-    else
-      render json: @wine.errors, status: :unprocessable_entity
-    end
-  end
-
-  def create
-    # @wine = current_user.wines.build(wine_params)
-    @wine = Wine.new(wine_params)
-    if @wine.save
-      render json: @wine
-    else
-      render json: @wine.errors, status: :unprocessable_entity
-    end
-  end
+  # def destroy
+  #   @wine.destroy
+  #   head :no_content
+  # end
+  #
+  # def update
+  #   if @wine.update(wine_params)
+  #     render json: @wine
+  #   else
+  #     render json: @wine.errors, status: :unprocessable_entity
+  #   end
+  # end
+  #
+  # def create
+  #   # @wine = current_user.wines.build(wine_params)
+  #   @wine = Wine.new(wine_params)
+  #   if @wine.save
+  #     render json: @wine
+  #   else
+  #     render json: @wine.errors, status: :unprocessable_entity
+  #   end
+  # end
 
   def set_wine
     # @wine = current_user.wines.find(params[:id])
